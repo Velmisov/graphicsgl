@@ -1,0 +1,24 @@
+﻿  main.cpp
+c:\users\velmisov\downloads\opengl-master\graphics\lab15\main.cpp(419): warning C4244: '*=': conversion from 'double' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+c:\users\velmisov\downloads\opengl-master\graphics\lab15\main.cpp(420): warning C4244: '*=': conversion from 'double' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+c:\users\velmisov\downloads\opengl-master\graphics\lab15\main.cpp(421): warning C4244: '*=': conversion from 'double' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+c:\users\velmisov\downloads\opengl-master\graphics\lab15\main.cpp(610): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\velmisov\downloads\opengl-master\graphics\lab15\main.cpp(612): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\velmisov\downloads\opengl-master\graphics\lab15\main.cpp(745): warning C4305: 'initializing': truncation from 'double' to 'float'
+c:\users\velmisov\downloads\opengl-master\graphics\lab15\main.cpp(791): warning C4305: 'initializing': truncation from 'double' to 'float'
+c:\users\velmisov\downloads\opengl-master\graphics\lab15\main.cpp(796): warning C4305: 'initializing': truncation from 'double' to 'float'
+c:\users\velmisov\downloads\opengl-master\graphics\lab15\main.cpp(887): warning C4267: 'argument': conversion from 'size_t' to 'GLsizei', possible loss of data
+LINK : fatal error C1047: The object or library file '..\lib\SOIL.lib' was created with an older compiler than other objects; rebuild old objects and libraries
+LINK : fatal error LNK1257: code generation failed

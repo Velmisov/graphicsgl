@@ -1,0 +1,21 @@
+﻿  main.cpp
+c:\users\velmisov\downloads\opengl-master\graphics\lab14\main.cpp(353): warning C4244: '*=': conversion from 'double' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+c:\users\velmisov\downloads\opengl-master\graphics\lab14\main.cpp(354): warning C4244: '*=': conversion from 'double' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+c:\users\velmisov\downloads\opengl-master\graphics\lab14\main.cpp(355): warning C4244: '*=': conversion from 'double' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+c:\users\velmisov\downloads\opengl-master\graphics\lab14\main.cpp(509): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\velmisov\downloads\opengl-master\graphics\lab14\main.cpp(511): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\velmisov\downloads\opengl-master\graphics\lab14\main.cpp(639): warning C4267: 'argument': conversion from 'size_t' to 'GLsizei', possible loss of data
+LINK : fatal error C1047: The object or library file '..\lib\SOIL.lib' was created with an older compiler than other objects; rebuild old objects and libraries
+LINK : fatal error LNK1257: code generation failed
