@@ -27,7 +27,8 @@ GLuint textureTable, textureApple;
 GLuint shaderProgramTable, shaderProgramApple;
 GLuint VAOTable, VAOApple;
 
-mat4 modelPos, viewProjection;
+mat4 modelPos;
+mat4 viewProjection;
 mat3 normaltr;
 
 float viewPosition[]{ 0, 10, -20 };
@@ -47,7 +48,7 @@ GLuint elementbufferApple;
 
 string objectAppleName = "apple.obj";
 string objectAppleTextureName = "apple.jpg";
-double scaleObjectApple = 0.1;
+double scaleObjectApple = 0.01;
 string objectTableName = "table.obj";
 string objectTableTextureName = "wood.jpg";
 double scaleObjectTable = 4;
@@ -167,7 +168,7 @@ void reshape(int w, int h)
 	glViewport(0, 0, w, h);
 }
 
-void loadOBJ(const string & path, vector<vec3> & out_vertices, vector<vec2> & out_uvs, vector<vec3> & out_normals)
+void loadOBJ(const string & path, vector<vec3> & out_vertices, vector<vec2> & out_uvs, vector<vec3> & out_normals, double scale)
 {
 	vector<unsigned int> vertex_indices, uv_indices, normal_indices;
 	vector<vec3> temp_vertices;
@@ -186,9 +187,9 @@ void loadOBJ(const string & path, vector<vec3> & out_vertices, vector<vec2> & ou
 			vec3 vertex;
 			ss >> vertex.x >> vertex.y >> vertex.z;
 
-			vertex.x *= scaleObjectTable;
-			vertex.y *= scaleObjectTable;
-			vertex.z *= scaleObjectTable;
+			vertex.x *= scale;
+			vertex.y *= scale;
+			vertex.z *= scale;
 			temp_vertices.push_back(vertex);
 		}
 		else if (lineHeader == "vt")
@@ -297,7 +298,7 @@ void initBuffersTable()
 	vector<vec3> indexed_vertices;
 	vector<vec2> indexed_uvs;
 	vector<vec3> indexed_normals;
-	loadOBJ(objectTableName.c_str(), vertices, uvs, normals);
+	loadOBJ(objectTableName.c_str(), vertices, uvs, normals, scaleObjectTable);
 	indexVBO(vertices, uvs, normals, indicesTable, indexed_vertices, indexed_uvs, indexed_normals);
 
 	glGenBuffers(1, &vertexbufferTable);
@@ -346,8 +347,10 @@ void initBuffersApple()
 	vector<vec3> indexed_vertices;
 	vector<vec2> indexed_uvs;
 	vector<vec3> indexed_normals;
-	loadOBJ(objectAppleName.c_str(), vertices, uvs, normals);
+	loadOBJ(objectAppleName.c_str(), vertices, uvs, normals, scaleObjectApple);
 	indexVBO(vertices, uvs, normals, indicesApple, indexed_vertices, indexed_uvs, indexed_normals);
+	for (int i = 0; i < vertices.size(); i += 3)
+		vertices[i] += 100;
 
 	glGenBuffers(1, &vertexbufferApple);
 	glGenBuffers(1, &uvbufferApple);
@@ -371,20 +374,20 @@ void initBuffersApple()
 
 	// 1rst attribute buffer : vertices
 	glBindBuffer(GL_ARRAY_BUFFER, vertexbufferApple);
-	glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, 0, 0);
-	glEnableVertexAttribArray(3);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
+	glEnableVertexAttribArray(0);
 
 	// 3rd attribute buffer : normals
 	glBindBuffer(GL_ARRAY_BUFFER, normalbufferApple);
-	glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE, 0, 0);
-	glEnableVertexAttribArray(4);
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, 0);
+	glEnableVertexAttribArray(1);
 
 	// 2nd attribute buffer : UVs
 	glBindBuffer(GL_ARRAY_BUFFER, uvbufferApple);
-	glVertexAttribPointer(5, 2, GL_FLOAT, GL_FALSE, 0, 0);
-	glEnableVertexAttribArray(5);
+	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 0, 0);
+	glEnableVertexAttribArray(2);
 
-	glBindVertexArray(1);
+	glBindVertexArray(0);
 }
 
 void updateLight()
@@ -533,13 +536,28 @@ void show(void)
 
 	glUseProgram(shaderProgramApple);
 
+	modelPos = translate(modelPos, vec3(0, 4.1f, 1.5f));
 	setTransformApple();
 	setPointLightApple();
 	setMaterialApple(m_ambient, m_diffuse, m_specular, m_emission, m_shiness);
 
 	glBindVertexArray(VAOApple);
 	glDrawElements(GL_QUADS, indicesApple.size(), GL_UNSIGNED_SHORT, 0);
-	glBindVertexArray(1);
+
+	modelPos = translate(modelPos, vec3(-1, 0, 0));
+	setTransformApple();
+	setPointLightApple();
+	setMaterialApple(m_ambient, m_diffuse, m_specular, m_emission, m_shiness);
+
+	glDrawElements(GL_QUADS, indicesApple.size(), GL_UNSIGNED_SHORT, 0);
+
+	modelPos = translate(modelPos, vec3(2, 0, 0));
+	setTransformApple();
+	setPointLightApple();
+	setMaterialApple(m_ambient, m_diffuse, m_specular, m_emission, m_shiness);
+
+	glDrawElements(GL_QUADS, indicesApple.size(), GL_UNSIGNED_SHORT, 0);
+	glBindVertexArray(0);
 
 	glUseProgram(0);
 	if (glIsEnabled(GL_TEXTURE_2D))
